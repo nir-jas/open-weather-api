@@ -1,0 +1,82 @@
+components:
+  schemas:
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        lat:
+          type: number
+        long:
+          type: number
+      example:
+        id: 5ebac534954b54139806c112
+        name: London
+        lat: 51.5074
+        long: 0.1278
+
+    Weather:
+      type: object
+      properties:
+        id:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        temperature: 
+          type: number
+      example:
+        id: 5ebac534954b54139806c112
+        location: 
+          id: 5ebac534954b54139806c112
+          name: London
+          lat: 51.5074
+          long: 0.1278
+        temperature: 292.15
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+          
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 401
+            message: Please authenticate
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 403
+            message: Forbidden
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 404
+            message: Not found
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 500
+            message: Internal server error
